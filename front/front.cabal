@@ -21,6 +21,7 @@ executable esr-front
   -- other-extensions:    
   build-depends:       base >=4.9 && < 5
                --,       common
+               ,       containers
                ,       ghcjs-dom-jsffi
                ,       jsaddle
                --,       jsaddle-dom
