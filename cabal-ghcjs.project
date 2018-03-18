@@ -1,0 +1,6 @@
+compiler: ghcjs
+packages:
+  front/
+
+package front
+  flags: +dev

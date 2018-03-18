@@ -1,0 +1,6 @@
+compiler: ghc
+packages:
+  back/
+
+package back
+  flags: +dev
