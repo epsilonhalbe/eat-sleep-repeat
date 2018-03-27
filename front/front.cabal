@@ -20,7 +20,7 @@ executable esr-front
   -- other-modules:       Login
   -- other-extensions:    
   build-depends:       base >=4.9 && < 5
-               --,       common
+               ,       common
                ,       containers
                ,       ghcjs-dom-jsffi
                ,       jsaddle

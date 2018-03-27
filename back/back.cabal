@@ -41,6 +41,7 @@ library
   other-modules:       Database.Persist.Postgresql.Orphans
   -- other-extensions:
   build-depends:       base >=4.9 && <5
+               ,       common
                ,       aeson
                ,       attoparsec
                ,       bytestring

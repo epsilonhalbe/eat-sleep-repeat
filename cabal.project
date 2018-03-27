@@ -1,6 +1,9 @@
 compiler: ghc
 packages:
   back/
+  common/
 
 package back
+  flags: +dev
+package common
   flags: +dev
