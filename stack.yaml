@@ -1,7 +1,8 @@
 resolver:
     lts-10.2
 packages:
-    - '.'
+    - './back'
+    - './common'
 extra-deps:
     - 'servant-auth-0.3.0.1'
     - 'servant-auth-server-0.3.1.0'

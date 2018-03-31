@@ -6,12 +6,12 @@ import           Network.Wai.Middleware.Cors (simpleCors)
 import           Servant                     (Context ((:.), EmptyContext),
                                               serveWithContext)
 import           Servant.Auth.Server         (defaultCookieSettings,
-                                              defaultJWTSettings, generateKey)
+                                              defaultJWTSettings, generateKey, cookieIsSecure, IsSecure(..))
 
 import           ESR.API                     (api, server)
 
 port :: Int
-port = 8443
+port = 3709
 
 main :: IO ()
 main = do

@@ -20,12 +20,14 @@ executable esr-front
   -- other-modules:       Login
   -- other-extensions:    
   build-depends:       base >=4.9 && < 5
+               ,       aeson
                ,       common
                ,       containers
                ,       ghcjs-dom-jsffi
                ,       jsaddle
                --,       jsaddle-dom
                ,       microlens
+               ,       reflex
                ,       reflex-dom
                ,       text
   hs-source-dirs:      src

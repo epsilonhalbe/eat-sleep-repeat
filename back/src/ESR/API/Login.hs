@@ -11,30 +11,29 @@ import           Data.Aeson             (FromJSON, ToJSON)
 import           Data.ByteString.Char8  (unpack)
 import           Data.Text              (Text)
 import           GHC.Generics           (Generic)
-import           Servant
-import           Servant.Auth.Server    (CookieSettings, JWTSettings,
+import           Servant                hiding (NotSecure)
+import           Servant.Auth.Server    (CookieSettings(..), JWTSettings,
                                          SetCookie, makeCsrfCookie,
-                                         makeSessionCookie)
+                                         makeSessionCookie, cookieIsSecure, IsSecure(..))
 import           Web.Cookie             (setCookieValue)
-
 
 import           ESR.Login.Types        (Login(..), User(..))
 
-type XSRFHeader content = Headers '[ Header "XSRF-TOKEN" String
-                                   , Header "Set-Cookie" SetCookie] content
-
 type API = "login" :> ReqBody       '[JSON] Login
-                   :> PostNoContent '[JSON] (XSRFHeader NoContent)
+                   :> PostNoContent '[JSON] (WithXSRF NoContent)
 
+type WithXSRF content = Headers '[ Header "Set-Cookie" SetCookie
+                                 , Header "Set-Cookie" SetCookie] content
 
-server :: CookieSettings -> JWTSettings -> Login -> Handler (XSRFHeader NoContent)
-server cookieSettings jwtSettings (Login "test" "test") = do             -- TODO: Login
+server :: CookieSettings -> JWTSettings -> Login -> Handler (WithXSRF NoContent)
+server cs js (Login "test" "test") = do             -- TODO: Login
   let usr = User "name" "mail"                      -- TODO: User
-  (csrf, session) <- liftIO $
-                (,) <$> makeCsrfCookie cookieSettings
-                    <*> makeSessionCookie cookieSettings jwtSettings usr
-
-  maybe (throwError err401) (pure .   addHeader (unpack $ setCookieValue csrf)
-                                  . (`addHeader` NoContent)) session
+  (csrf, mSession) <- liftIO $
+     (,) <$> makeCsrfCookie    cs
+         <*> makeSessionCookie cs js usr
+  case mSession of
+    Just session -> pure $ addHeader csrf
+                         $ addHeader session NoContent
+    Nothing      -> throwError err401
 server _ _ _ = throwError err401
 
