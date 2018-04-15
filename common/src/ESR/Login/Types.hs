@@ -5,7 +5,7 @@ module ESR.Login.Types where
 import           Data.Aeson             (FromJSON, ToJSON)
 import           Data.Text              (Text)
 import           GHC.Generics           (Generic)
-#if !__GHCJS__
+#ifndef __GHCJS__
 import           Servant.Auth.Server    (FromJWT, ToJWT)
 #endif
 
@@ -21,7 +21,7 @@ data User = User { name :: Text, email :: Text }
 instance ToJSON   User
 instance FromJSON User
 
-#if !__GHCJS__
+#ifndef __GHCJS__
 instance ToJWT   User
 instance FromJWT User
 #endif

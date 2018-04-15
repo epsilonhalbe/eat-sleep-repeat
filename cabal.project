@@ -7,3 +7,4 @@ package back
   flags: +dev
 package common
   flags: +dev
+  flags: +nojs

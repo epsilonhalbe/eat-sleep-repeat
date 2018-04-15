@@ -5,4 +5,7 @@ packages:
     - './common'
 extra-deps:
     - 'servant-auth-0.3.0.1'
-    - 'servant-auth-server-0.3.1.0'
+    - 'servant-auth-server-0.3.2.0'
+flags:
+    common:
+        back: true

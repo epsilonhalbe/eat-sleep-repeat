@@ -24,12 +24,13 @@ type Unprotected =  Login.API
                :<|> Raw.API
 
 server :: CookieSettings -> JWTSettings -> Server API
-server cs jwts =  protected :<|> unprotected cs jwts
+server cs jwts =  protected
+             :<|> unprotected cs jwts
 
 protected :: AuthResult Login.User -> Server Protected
 protected (Authenticated Login.User{..}) =  return name
                                        :<|> return email
-protected x = throwAll err401{errBody = fromString $ show x}
+protected _ = throwAll err401
 
 unprotected :: CookieSettings -> JWTSettings -> Server Unprotected
 unprotected cs jwts =  Login.server cs jwts

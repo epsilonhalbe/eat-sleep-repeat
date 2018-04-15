@@ -45,7 +45,9 @@ library
                ,       aeson
                ,       attoparsec
                ,       bytestring
+               ,       case-insensitive
                ,       cookie
+               ,       data-default
                ,       mtl
                ,       persistent
                ,       persistent-template

@@ -11,7 +11,7 @@ import           Servant.Auth.Server         (defaultCookieSettings,
 import           ESR.API                     (api, server)
 
 port :: Int
-port = 3709
+port = 8443
 
 main :: IO ()
 main = do
